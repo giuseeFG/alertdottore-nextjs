@@ -1,8 +1,19 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f7f8fc;
+  --foreground: #0c1222;
+  --accent: #0d9488;
+  --accent-muted: rgba(13, 148, 136, 0.12);
+  --blue-glow: rgba(37, 99, 235, 0.14);
+  --radius-card: 1rem;
+  --radius-btn: 0.75rem;
+  --shadow-card:
+    0 1px 0 rgba(15, 23, 42, 0.04),
+    0 12px 40px -18px rgba(15, 23, 42, 0.14);
+  --shadow-card-hover:
+    0 1px 0 rgba(15, 23, 42, 0.06),
+    0 20px 50px -24px rgba(15, 23, 42, 0.18);
 }
 
 @theme inline {
@@ -10,17 +21,189 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-heading: var(--font-display), var(--font-geist-sans), system-ui, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  text-rendering: optimizeLegibility;
+}
+
+.prose-body {
+  line-height: 1.65;
+}
+
+.font-tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: 1rem;
+  z-index: 100;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-btn);
+  background: #0f172a;
+  color: #fff;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-120%);
+  transition:
+    opacity 0.15s ease,
+    transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.skip-link:focus {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+.noise-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.035;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+}
+
+.surface-card {
+  border-radius: var(--radius-card);
+  border: 1px solid rgb(226 232 240 / 0.85);
+  background-color: rgb(255 255 255 / 0.92);
+  box-shadow: var(--shadow-card);
+  transition:
+    box-shadow 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.2s ease;
+}
+
+.surface-card:hover {
+  box-shadow: var(--shadow-card-hover);
+  transform: translateY(-2px);
+  border-color: rgb(203 213 225 / 0.95);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .surface-card:hover {
+    transform: none;
+  }
+}
+
+.surface-elevated {
+  border-radius: var(--radius-card);
+  border: 1px solid rgb(226 232 240 / 0.85);
+  background-color: rgb(255 255 255 / 0.92);
+  box-shadow: var(--shadow-card);
+}
+
+.surface-panel {
+  border-radius: var(--radius-card);
+  border: 1px solid rgb(226 232 240 / 0.9);
+  background-color: rgb(255 255 255 / 0.78);
+  box-shadow: var(--shadow-card);
+  backdrop-filter: blur(8px);
+}
+
+@supports not (backdrop-filter: blur(8px)) {
+  .surface-panel {
+    background-color: rgb(255 255 255 / 0.96);
+  }
+}
+
+.btn-primary {
+  border-radius: var(--radius-btn);
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.2s ease;
+}
+
+.btn-primary:hover {
+  box-shadow: 0 8px 24px -8px rgb(37 99 235 / 0.55);
+  transform: translateY(-2px);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-primary:hover,
+  .btn-primary:active {
+    box-shadow: none;
+    transform: none;
+  }
+}
+
+.btn-dark {
+  border-radius: var(--radius-btn);
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.2s ease;
+}
+
+.btn-dark:hover {
+  box-shadow: 0 10px 28px -10px rgb(15 23 42 / 0.45);
+  transform: translateY(-2px);
+}
+
+.btn-dark:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-dark:hover,
+  .btn-dark:active {
+    box-shadow: none;
+    transform: none;
+  }
+}
+
+.faq-details > summary {
+  list-style: none;
+}
+
+.faq-details > summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-details .faq-chevron {
+  transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.faq-details[open] .faq-chevron {
+  transform: rotate(180deg);
+}
+
+.font-heading {
+  font-family: var(--font-heading);
+  letter-spacing: -0.02em;
+}
+
+::selection {
+  background: rgb(204 251 241);
+  color: rgb(12 18 34);
 }
