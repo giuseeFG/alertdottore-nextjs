@@ -15,11 +15,13 @@ import StickyCTA from '@/components/StickyCTA'
 
 export default function Home() {
   return (
-    <main className="relative min-h-screen overflow-x-hidden bg-[#f5f7fb] text-slate-900">
-      <div className="pointer-events-none fixed inset-0" aria-hidden>
-        <div className="absolute inset-0 bg-[radial-gradient(110%_75%_at_0%_-10%,rgba(59,130,246,0.09),transparent_50%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(70%_45%_at_100%_15%,rgba(13,148,136,0.07),transparent_42%)]" />
-        <div className="noise-overlay fixed" />
+    <main className="relative min-h-screen overflow-x-hidden text-slate-900">
+      <div className="page-dynamic-bg" aria-hidden>
+        <div className="page-dynamic-bg__mesh" />
+        <div className="page-dynamic-bg__orb page-dynamic-bg__orb--a" />
+        <div className="page-dynamic-bg__orb page-dynamic-bg__orb--b" />
+        <div className="page-dynamic-bg__orb page-dynamic-bg__orb--c" />
+        <div className="noise-overlay absolute inset-0 opacity-[0.04]" />
       </div>
       <div className="relative z-10">
         <Header />

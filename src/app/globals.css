@@ -41,6 +41,124 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+/* Sfondo pagina: mesh + orb blur animati (solo transform, GPU-friendly) */
+.page-dynamic-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  background: linear-gradient(
+    165deg,
+    #f5f7fb 0%,
+    #f0f4fc 35%,
+    #f7f8fc 70%,
+    #eef5fb 100%
+  );
+}
+
+.page-dynamic-bg__mesh {
+  position: absolute;
+  inset: -35%;
+  background:
+    radial-gradient(ellipse 85% 55% at 15% 35%, var(--blue-glow), transparent 52%),
+    radial-gradient(ellipse 75% 50% at 88% 18%, var(--accent-muted), transparent 48%),
+    radial-gradient(ellipse 65% 45% at 72% 85%, rgba(99, 102, 241, 0.09), transparent 46%);
+  will-change: transform;
+  animation: page-dynamic-bg-mesh 32s ease-in-out infinite alternate;
+}
+
+.page-dynamic-bg__orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(72px);
+  will-change: transform;
+  opacity: 0.85;
+}
+
+.page-dynamic-bg__orb--a {
+  width: min(52vw, 420px);
+  height: min(52vw, 420px);
+  left: -8%;
+  top: 12%;
+  background: rgba(59, 130, 246, 0.22);
+  animation: page-dynamic-bg-float-a 26s ease-in-out infinite;
+}
+
+.page-dynamic-bg__orb--b {
+  width: min(48vw, 380px);
+  height: min(48vw, 380px);
+  right: -12%;
+  top: 38%;
+  background: rgba(13, 148, 136, 0.16);
+  animation: page-dynamic-bg-float-b 31s ease-in-out infinite;
+}
+
+.page-dynamic-bg__orb--c {
+  width: min(44vw, 340px);
+  height: min(44vw, 340px);
+  left: 28%;
+  bottom: -18%;
+  background: rgba(129,140,248,0.14);
+  animation: page-dynamic-bg-float-c 24s ease-in-out infinite;
+}
+
+@keyframes page-dynamic-bg-mesh {
+  0% {
+    transform: translate(-3%, -2%) scale(1);
+  }
+  100% {
+    transform: translate(4%, 3%) scale(1.06);
+  }
+}
+
+@keyframes page-dynamic-bg-float-a {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  40% {
+    transform: translate(12%, 8%) scale(1.08);
+  }
+  70% {
+    transform: translate(4%, -6%) scale(0.96);
+  }
+}
+
+@keyframes page-dynamic-bg-float-b {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  45% {
+    transform: translate(-10%, 12%) scale(1.05);
+  }
+  75% {
+    transform: translate(-4%, -8%) scale(0.94);
+  }
+}
+
+@keyframes page-dynamic-bg-float-c {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  35% {
+    transform: translate(-14%, -10%) scale(1.07);
+  }
+  65% {
+    transform: translate(10%, 4%) scale(0.95);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-dynamic-bg__mesh,
+  .page-dynamic-bg__orb {
+    animation: none !important;
+    will-change: auto;
+  }
+}
+
 .prose-body {
   line-height: 1.65;
 }
