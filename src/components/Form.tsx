@@ -190,6 +190,7 @@ export default function Form() {
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
+                    placeholder="Es. Mario Rossi"
                     required
                     autoComplete="name"
                     disabled={status === 'sending'}
