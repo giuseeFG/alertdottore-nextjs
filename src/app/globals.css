@@ -159,6 +159,26 @@ body {
   }
 }
 
+@keyframes flow-infographic-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.55;
+  }
+}
+
+.flow-infographic-radar {
+  animation: flow-infographic-pulse 3.2s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flow-infographic-radar {
+    animation: none;
+  }
+}
+
 .prose-body {
   line-height: 1.65;
 }
